@@ -35,7 +35,7 @@ Vagrant.configure("2") do |config|
       sudo zypper --non-interactive install apparmor-parser
       curl -sfL https://get.k3s.io | sh -
     SHELL
-  config.vm.provision "file", source: "/Users/buuthongtran/UdaConnect-MicroServiceApp", destination: "/home/vagrant/UdaConnect-MicroServiceApp"
+
   end
 
 
