@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: udaconnect-app
-  name: udaconnect-app
+    service: udaconnect-frontend-app
+  name: udaconnect-frontend-app
 spec:
   ports:
   - name: "3000"
@@ -11,28 +11,28 @@ spec:
     targetPort: 3000
     nodePort: 30000
   selector:
-    service: udaconnect-app
+    service: udaconnect-frontend-app
   type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: udaconnect-app
-  name: udaconnect-app
+    service: udaconnect-frontend-app
+  name: udaconnect-frontend-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: udaconnect-app
+      service: udaconnect-frontend-app
   template:
     metadata:
       labels:
-        service: udaconnect-app
+        service: udaconnect-frontend-app
     spec:
       containers:
-      - image: udacity/nd064-udaconnect-app:latest
-        name: udaconnect-app
+      - image: petetran/udaconnect-frontend-app:latest
+        name: udaconnect-frontend-app
         imagePullPolicy: Always
         resources:
           requests:

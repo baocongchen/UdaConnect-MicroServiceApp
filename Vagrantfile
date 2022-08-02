@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-
+  
   config.vm.define "master" do |master|
     master.vm.box = default_box
     master.vm.hostname = "master"
@@ -35,6 +35,7 @@ Vagrant.configure("2") do |config|
       sudo zypper --non-interactive install apparmor-parser
       curl -sfL https://get.k3s.io | sh -
     SHELL
+  config.vm.provision "file", source: "/Users/buuthongtran/UdaConnect-MicroServiceApp", destination: "/home/vagrant/UdaConnect-MicroServiceApp"
   end
 
 
