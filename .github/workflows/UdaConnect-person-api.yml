@@ -22,9 +22,9 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            petetran/udaconnect
+            petetran/udaconnect-person-api
           tags: |
-            type=raw,value=v1.0.{{ github.run_number }}
+            type=raw,value=v1.0
             type=ref,event=branch
             type=sha
             type=raw,value=latest
@@ -37,27 +37,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push Docker image of connection-api
-        uses: docker/build-push-action@v3.1.0
-        with:
-          context: .
-          push: true
-          file: ./modules/connection-api/Dockerfile
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
       - name: Build and push Docker image of person-api
         uses: docker/build-push-action@v3.1.0
         with:
           context: .
           push: true
           file: ./modules/person-api/Dockerfile
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-      - name: Build and push Docker image of location-api
-        uses: docker/build-push-action@v3.1.0
-        with:
-          context: .
-          push: true
-          file: ./modules/location-api/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
