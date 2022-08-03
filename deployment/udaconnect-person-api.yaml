@@ -34,6 +34,18 @@ spec:
       - image: petetran/udaconnect-person-api:latest
         name: udaconnect-person-api
         imagePullPolicy: Always
+        readinessProbe:
+            httpGet:
+              path: /health
+              port: 5002
+            initialDelaySeconds: 5
+            periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5002
+          initialDelaySeconds: 5
+          periodSeconds: 10
         env:
         - name: DB_USERNAME
           valueFrom:
