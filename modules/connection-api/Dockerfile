@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5003
 
 COPY ./modules/connection-api .
-CMD ["flask", "run", "--host", "0.0.0.0"]
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5003"]
