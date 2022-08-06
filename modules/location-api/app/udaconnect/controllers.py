@@ -7,6 +7,7 @@ from app.udaconnect.services import LocationService
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
+from typing import List
 
 DATE_FORMAT = "%Y-%m-%d"
 
@@ -14,6 +15,12 @@ api = Namespace("UdaConnect", description="Connections via geolocation.")  # noq
 
 
 @api.route("/locations")
+class LocationResource(Resource):
+    @responds(schema=LocationSchema)
+    def get(self) -> List[Location]:
+        location: List[Location] = LocationService.retrieve_all()
+        return location
+
 @api.route("/locations/<location_id>")
 @api.param("location_id", "Unique ID for a given Location", _in="query")
 class LocationResource(Resource):
@@ -26,7 +33,6 @@ class LocationResource(Resource):
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
+        location: Location = LocationService.retrieve(location_id)
+        return location
 
-        # location: Location = LocationService.retrieve(location_id)
-        # return location
-        return 'pete'

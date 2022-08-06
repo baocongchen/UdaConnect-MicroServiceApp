@@ -1,5 +1,5 @@
 import logging
-from typing import Dict
+from typing import Dict, List
 
 from app import db
 from app.udaconnect.models import Location
@@ -11,6 +11,11 @@ logger = logging.getLogger("udaconnect-api")
 
 
 class LocationService:
+    @staticmethod
+    def retrieve_all() -> List[Location]:
+        return db.session.query(Location, Location.coordinate.ST_AsText()).all()
+
+
     @staticmethod
     def retrieve(location_id) -> Location:
         location, coord_text = (
