@@ -1,4 +1,5 @@
 import logging
+import requests
 from datetime import datetime, timedelta
 from typing import Dict, List
 
@@ -23,7 +24,10 @@ class ConnectionService:
         large datasets. This is by design: what are some ways or techniques to help make this data integrate more
         smoothly for a better user experience for API consumers?
         """
-        locations: List = db.session.query(Location).filter(
+        # db.session.query(Location).filter(
+        url = ('http://localhost:30003/api/locations/')
+        response = requests.get(url).json()
+        locations: List = response.filter(
             Location.person_id == person_id
         ).filter(Location.creation_time < end_date).filter(
             Location.creation_time >= start_date

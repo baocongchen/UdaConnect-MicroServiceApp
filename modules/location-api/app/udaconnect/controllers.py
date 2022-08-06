@@ -26,5 +26,7 @@ class LocationResource(Resource):
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
-        location: Location = LocationService.retrieve(location_id)
-        return location
+
+        # location: Location = LocationService.retrieve(location_id)
+        # return location
+        return 'pete'
