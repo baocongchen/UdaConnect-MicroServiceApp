@@ -25,14 +25,15 @@ class ConnectionService:
         smoothly for a better user experience for API consumers?
         """
         # db.session.query(Location).filter(
-        url = ('http://localhost:30003/api/locations/')
+        url = ('http://localhost:30003/api/locations')
         response = requests.get(url).json()
-        locations: List = response.filter(
-            Location.person_id == person_id
-        ).filter(Location.creation_time < end_date).filter(
-            Location.creation_time >= start_date
-        ).all()
 
+        # locations: List = response.filter(
+        #     Location.person_id == person_id
+        # ).filter(Location.creation_time < end_date).filter(
+        #     Location.creation_time >= start_date
+        # ).all()
+        locations = response
         # Cache all users in memory for quick lookup
         person_map: Dict[str, Person] = {person.id: person for person in PersonService.retrieve_all()}
 

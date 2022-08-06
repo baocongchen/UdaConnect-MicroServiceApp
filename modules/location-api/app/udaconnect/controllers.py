@@ -16,10 +16,10 @@ api = Namespace("UdaConnect", description="Connections via geolocation.")  # noq
 
 @api.route("/locations")
 class LocationResource(Resource):
-    @responds(schema=LocationSchema)
+    @responds(schema=LocationSchema, many=True)
     def get(self) -> List[Location]:
-        location: List[Location] = LocationService.retrieve_all()
-        return location
+        locations: List[Location] = LocationService.retrieve_all()
+        return locations
 
 @api.route("/locations/<location_id>")
 @api.param("location_id", "Unique ID for a given Location", _in="query")
