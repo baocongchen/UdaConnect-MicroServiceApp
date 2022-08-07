@@ -38,8 +38,10 @@ class LocationService:
         db.session.commit()
 
         return new_location
-        
+
     @staticmethod
     def retrieve_all() -> List[Location]:
-        return db.session.query(Location).all()
+        locations, coord_texts = db.session.query(Location, Location.coordinate.ST_AsText()).all()
+        print(locations)
+        return locations
 
