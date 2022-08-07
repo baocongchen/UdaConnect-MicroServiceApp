@@ -41,7 +41,10 @@ class LocationService:
 
     @staticmethod
     def retrieve_all() -> List[Location]:
-        locations, coord_texts = db.session.query(Location, Location.coordinate.ST_AsText()).all()
-        print(locations)
+        result = db.session.query(Location, Location.coordinate.ST_AsText()).all()
+        locations = [i[0] for i in result]
+        coord_text = [i[1] for i in result]
+        for i in range(len(locations)):
+            locations[i].wkt_shape = coord_text[i]
         return locations
 
