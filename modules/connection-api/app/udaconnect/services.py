@@ -27,7 +27,10 @@ class ConnectionService:
         # db.session.query(Location).filter(
         requests.adapters.DEFAULT_RETRIES = 5
         url = ('http://localhost:30001/api/locations')
-        response = requests.get(url).json()
+        try:
+            response = requests.get(url, verify=False, timeout=5).json()
+        except requests.exceptions.ConnectionError:
+            print("Site not rechable", url)
 
         # locations: List = response.filter(
         #     Location.person_id == person_id
