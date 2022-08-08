@@ -33,7 +33,7 @@ class ConnectionService:
         # ).filter(Location.creation_time < end_date).filter(
         #     Location.creation_time >= start_date
         # ).all()
-        locations = response
+        locations = [location for location in response if (start_date < location.creation_time < end_date)]
         # Cache all users in memory for quick lookup
         person_map: Dict[str, Person] = {person.id: person for person in PersonService.retrieve_all()}
 
