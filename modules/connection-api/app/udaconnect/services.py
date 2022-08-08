@@ -27,7 +27,7 @@ class ConnectionService:
         # db.session.query(Location).filter(
         url = ('http://localhost:30001/api/locations')
 
-        response = requests.get(url, verify=False, timeout=5).json()
+        response = requests.get(url, verify=False, timeout=None).json()
         # locations: List = response.filter(
         #     Location.person_id == person_id
         # ).filter(Location.creation_time < end_date).filter(
