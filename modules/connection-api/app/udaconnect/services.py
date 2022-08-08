@@ -16,7 +16,7 @@ logger = logging.getLogger("udaconnect-api")
 class ConnectionService:
     @staticmethod
     def find_contacts(person_id: int, start_date: datetime, end_date: datetime, meters=5
-    ) -> List[Connection]:
+    ):
         """
         Finds all Person who have been within a given distance of a given Person within a date range.
 
@@ -25,7 +25,6 @@ class ConnectionService:
         smoothly for a better user experience for API consumers?
         """
         # db.session.query(Location).filter(
-        requests.adapters.DEFAULT_RETRIES = 5
         url = ('http://localhost:30001/api/locations')
 
         response = requests.get(url, verify=False, timeout=5).json()
@@ -84,7 +83,7 @@ class ConnectionService:
                     )
                 )
 
-        return result
+        return response
 
 
 class LocationService:
