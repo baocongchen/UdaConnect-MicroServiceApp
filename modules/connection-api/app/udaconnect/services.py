@@ -83,8 +83,7 @@ class ConnectionService:
                         person=person_map[exposed_person_id], location=location,
                     )
                 )
-        print(response)
-        return response
+        return result
 
 
 class LocationService:
