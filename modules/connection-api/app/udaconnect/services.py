@@ -27,12 +27,13 @@ class ConnectionService:
         # db.session.query(Location).filter(
         url = ('http://udaconnect-location-api:5001/api/locations')
         response = requests.get(url, verify=False, timeout=None).json()
+        logger.info('response ', response)
         # locations: List = response.filter(
         #     Location.person_id == person_id
         # ).filter(Location.creation_time < end_date).filter(
         #     Location.creation_time >= start_date
         # ).all()
-        locations = [location for location in response if (start_date <= location.creation_time < end_date)]
+        locations = [location for location in response if (start_date <= location['creation_time'] < end_date)]
         # Cache all users in memory for quick lookup
         person_map: Dict[str, Person] = {person.id: person for person in PersonService.retrieve_all()}
 
