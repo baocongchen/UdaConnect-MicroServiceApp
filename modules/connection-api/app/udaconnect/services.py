@@ -1,5 +1,7 @@
 import logging
 import requests
+import json
+import urllib
 from datetime import datetime, timedelta
 from typing import Dict, List
 
@@ -26,8 +28,10 @@ class ConnectionService:
         """
         # db.session.query(Location).filter(
         url = ('http://localhost:30001/api/locations')
-
-        response = requests.get(url, verify=False, timeout=None)
+        response = urllib.request.urlopen(url)
+        data = response.read()
+        dict = json.loads(data)
+        # response = requests.get(url, verify=False, timeout=None)
         # locations: List = response.filter(
         #     Location.person_id == person_id
         # ).filter(Location.creation_time < end_date).filter(
@@ -83,7 +87,7 @@ class ConnectionService:
         #             )
         #         )
 
-        return response
+        return dict
 
 
 class LocationService:
