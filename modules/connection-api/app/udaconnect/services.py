@@ -25,7 +25,7 @@ class ConnectionService:
         smoothly for a better user experience for API consumers?
         """
         # db.session.query(Location).filter(
-        url = ('http://localhost:30001/api/locations')
+        url = ('http://example.com')
 
         response = requests.get(url, verify=False, timeout=None)
         # locations: List = response.filter(
