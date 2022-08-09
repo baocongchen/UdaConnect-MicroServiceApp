@@ -24,19 +24,18 @@ class ConnectionService:
         large datasets. This is by design: what are some ways or techniques to help make this data integrate more
         smoothly for a better user experience for API consumers?
         """
-        # db.session.query(Location).filter(
-        url = ('http://udaconnect-location-api:5001/api/locations')
-        response = requests.get(url, verify=False, timeout=None).json()
+        # fetch data from Location API app
+        location_url = ('http://udaconnect-location-api:5001/api/locations')
+        location_response = requests.get(location_url, verify=False, timeout=None).json()
         format = "%Y-%m-%dT%H:%M:%S"
 
-        # locations: List = response.filter(
-        #     Location.person_id == person_id
-        # ).filter(Location.creation_time < end_date).filter(
-        #     Location.creation_time >= start_date
-        # ).all()
-        locations = [location for location in response if (start_date <= datetime.strptime(location['creation_time'], format) < end_date)]
+
+        locations = [location for location in location_response if (start_date <= datetime.strptime(location['creation_time'], format) < end_date)]
+        
         # Cache all users in memory for quick lookup
-        person_map: Dict[str, Person] = {person.id: person for person in PersonService.retrieve_all()}
+        person_url = ('http://udaconnect-person-api:5002/api/persons')
+        person_response = requests.get(person_url, verify=False, timeout=None).json()
+        person_map: Dict[str, Person] = {person.id: person for person in person_response}
 
         # Prepare arguments for queries
         data = []
@@ -84,36 +83,6 @@ class ConnectionService:
                     )
                 )
         return result
-
-
-class LocationService:
-    @staticmethod
-    def retrieve(location_id) -> Location:
-        location, coord_text = (
-            db.session.query(Location, Location.coordinate.ST_AsText())
-            .filter(Location.id == location_id)
-            .one()
-        )
-
-        # Rely on database to return text form of point to reduce overhead of conversion in app code
-        location.wkt_shape = coord_text
-        return location
-
-    @staticmethod
-    def create(location: Dict) -> Location:
-        validation_results: Dict = LocationSchema().validate(location)
-        if validation_results:
-            logger.warning(f"Unexpected data format in payload: {validation_results}")
-            raise Exception(f"Invalid payload: {validation_results}")
-
-        new_location = Location()
-        new_location.person_id = location["person_id"]
-        new_location.creation_time = location["creation_time"]
-        new_location.coordinate = ST_Point(location["latitude"], location["longitude"])
-        db.session.add(new_location)
-        db.session.commit()
-
-        return new_location
 
 
 class PersonService:
