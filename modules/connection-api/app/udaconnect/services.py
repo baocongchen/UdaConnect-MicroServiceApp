@@ -25,9 +25,8 @@ class ConnectionService:
         smoothly for a better user experience for API consumers?
         """
         # db.session.query(Location).filter(
-        url = ('http://localhost:30001/api/locations')
-        response = requests.get('http://example.com')
-        # response = requests.get(url, verify=False, timeout=None)
+        url = ('http://udaconnect-location-api:5001/api/locations')
+        response = requests.get(url, verify=False, timeout=None)
         # locations: List = response.filter(
         #     Location.person_id == person_id
         # ).filter(Location.creation_time < end_date).filter(
