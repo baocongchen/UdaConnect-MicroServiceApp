@@ -26,7 +26,7 @@ class ConnectionService:
         """
         # db.session.query(Location).filter(
         url = ('http://udaconnect-location-api:5001/api/locations')
-        response = requests.get(url, verify=False, timeout=None)
+        response = requests.get(url, verify=False, timeout=None).json()
         # locations: List = response.filter(
         #     Location.person_id == person_id
         # ).filter(Location.creation_time < end_date).filter(
@@ -81,7 +81,7 @@ class ConnectionService:
         #                 person=person_map[exposed_person_id], location=location,
         #             )
         #         )
-
+        print(response)
         return response
 
 
