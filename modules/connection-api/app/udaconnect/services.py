@@ -35,7 +35,7 @@ class ConnectionService:
         # Cache all users in memory for quick lookup
         person_url = ('http://udaconnect-person-api:5002/api/persons')
         person_response = requests.get(person_url, verify=False, timeout=None).json()
-        person_map: Dict[str, Person] = {person.id: person for person in person_response}
+        person_map: Dict[str, Person] = {person['id']: person for person in person_response}
 
         # Prepare arguments for queries
         data = []
