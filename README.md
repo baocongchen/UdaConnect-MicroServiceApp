@@ -148,11 +148,7 @@ To manually connect to the database, you will need software compatible with Post
 * GUI users will find [pgAdmin](https://www.pgadmin.org/) to be a popular open-source solution.
 
 ## Architecture Diagrams
-Your architecture diagram should focus on the services and how they talk to one another. For our project, we want the diagram in a `.png` format. Some popular free software and tools to create architecture diagrams:
-1. [Lucidchart](https://www.lucidchart.com/pages/)
-2. [Google Docs](docs.google.com) Drawings (In a Google Doc, _Insert_ - _Drawing_ - _+ New_)
-3. [Diagrams.net](https://app.diagrams.net/)
 
-## Tips
-* We can access a running Docker container using `kubectl exec -it <pod_id> sh`. From there, we can `curl` an endpoint to debug network issues.
-* The starter project uses Python Flask. Flask doesn't work well with `asyncio` out-of-the-box. Consider using `multiprocessing` to create threads for asynchronous behavior in a standard Flask application.
+[Lucidchart](./docs/architecture_design.png)
+
+
