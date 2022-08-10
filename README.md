@@ -69,6 +69,7 @@ Type `exit` to exit the virtual OS and you will find yourself back in your compu
 Afterwards, you can test that `kubectl` works by running a command like `kubectl describe services`. It should not return any errors.
 
 ### Steps
+Do `vagrant ssh` to login to your vagrant virtual machine, clone the repository, change directory `cd UdaConnect-MicroServiceApp`, then perform the following steps
 1. `kubectl apply -f deployment/db-configmap.yaml` - Set up environment variables for the pods
 2. `kubectl apply -f deployment/db-secret.yaml` - Set up secrets for the pods
 3. `kubectl apply -f deployment/postgres.yaml` - Set up a Postgres database running PostGIS
@@ -148,7 +149,5 @@ To manually connect to the database, you will need software compatible with Post
 * GUI users will find [pgAdmin](https://www.pgadmin.org/) to be a popular open-source solution.
 
 ## Architecture Diagrams
-
-[Lucidchart](./docs/architecture_design.png)
-
+Refer to [Lucidchart](./docs/architecture_design.png)
 
